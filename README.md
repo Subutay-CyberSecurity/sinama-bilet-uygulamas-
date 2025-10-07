@@ -1,1 +1,1 @@
-https://subutay-cybersecurity.github.io/sinama-bilet-uygulamas-/
+https://subutay-cybersecurity.github.io/sinama-bilet-uygulamasi/
