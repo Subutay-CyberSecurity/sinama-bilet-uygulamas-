@@ -1,3 +1,23 @@
+let alan = document.querySelector("#koltuk");
+
+alan.addEventListener("click" , function(e){
+  if(e.target.localName == "button"){
+    if(e.target.className == "serbest"){
+      e.target.classList = "secili";
+    } else if (e.target.className = "secili"){
+      e.target.classList = "serbest";
+    };
+  };
+});
+
+
+
+
+
+
+
+
+
 
 
 
