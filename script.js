@@ -1,14 +1,16 @@
+let tekcift= 0;
+
 document.querySelector("#koltuk").addEventListener("click" , function(e){
-  if(e.target.localName == "button"){
-    if(e.target.className == "serbest"){
-      e.target.classList = "secili";
-    } else if (e.target.className == "secili"){
-      e.target.classList = "serbest";
-    }; 
+  if(!(e.target.localName == "button")) return;
+  if(e.target.className == "serbest"){
+    e.target.classList = "secili";
+  } else if (e.target.className == "secili"){
+    e.target.classList = "serbest";
+  } else if((e.target.className == "secilmis") && (tekcift%2 == 1)){
+    e.target.className = "serbest"
   };
 });
 
-let tekcift= 0;
 document.querySelector("#butonlar").addEventListener("click", function(e){
   if (!(e.target.localName=="span"))return;
   if (e.target.className == "satinal"){
@@ -20,12 +22,6 @@ document.querySelector("#butonlar").addEventListener("click", function(e){
     tekcift += 1;
     if (tekcift%2 == 1){
       e.target.style.background="red";
-      document.querySelector("#koltuk").addEventListener("click" , function(e){
-        if(!(e.target.localName == "button")) return;
-        if(e.target.className == "secilmis"){
-          e.target.classList = "serbest";
-        };
-      });
     } else {
       e.target.style.background="#2E2E2E";
     };
