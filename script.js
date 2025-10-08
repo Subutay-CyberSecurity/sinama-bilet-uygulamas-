@@ -1,16 +1,36 @@
-let alan = document.querySelector("#koltuk");
-
-alan.addEventListener("click" , function(e){
+document.querySelector("#koltuk").addEventListener("click" , function(e){
   if(e.target.localName == "button"){
     if(e.target.className == "serbest"){
       e.target.classList = "secili";
-    } else if (e.target.className = "secili"){
+    } else if (e.target.className == "secili"){
       e.target.classList = "serbest";
-    };
+    }; 
   };
 });
 
-
+let tekcift= 0;
+document.querySelector("#butonlar").addEventListener("click", function(e){
+  if (!(e.target.localName=="span"))return;
+  if (e.target.className == "satinal"){
+    document.querySelectorAll(".secili").forEach(e => {
+      e.className = "secilmis";
+    });
+    document.querySelector("#bunudeil").classList = "secili";
+  } else if (e.target.className == "iadeet"){
+    tekcift += 1;
+    if (tekcift%2 == 1){
+      e.target.style.background="red";
+      document.querySelector("#koltuk").addEventListener("click" , function(e){
+        if(!(e.target.localName == "button")) return;
+        if(e.target.className == "secilmis"){
+          e.target.classList = "serbest";
+        };
+      });
+    } else {
+      e.target.style.background="#2E2E2E";
+    };
+  };
+});
 
 
 
