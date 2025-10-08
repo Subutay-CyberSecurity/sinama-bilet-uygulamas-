@@ -2,12 +2,15 @@ let tekcift= 0;
 
 document.querySelector("#koltuk").addEventListener("click" , function(e){
   if(!(e.target.localName == "button")) return;
-  if(e.target.className == "serbest"){
+  if((e.target.className == "serbest") && (!(tekcift%2 == 1))){
     e.target.classList = "secili";
-  } else if (e.target.className == "secili"){
+    yuzdehesabı();
+  } else if ((e.target.className == "secili") && (!(tekcift%2 == 1))){
     e.target.classList = "serbest";
+    yuzdehesabı();
   } else if((e.target.className == "secilmis") && (tekcift%2 == 1)){
-    e.target.className = "serbest"
+    e.target.className = "serbest";
+    yuzdehesabı();
   };
 });
 
@@ -17,7 +20,8 @@ document.querySelector("#butonlar").addEventListener("click", function(e){
     document.querySelectorAll(".secili").forEach(e => {
       e.className = "secilmis";
     });
-    document.querySelector("#bunudeil").classList = "secili";
+    document.querySelector("#secili").classList = "secili";
+    yuzdehesabı();
   } else if (e.target.className == "iadeet"){
     tekcift += 1;
     if (tekcift%2 == 1){
@@ -28,14 +32,23 @@ document.querySelector("#butonlar").addEventListener("click", function(e){
   };
 });
 
+function yuzdehesabı(){
+  
+  let serbestSayisi = (document.querySelectorAll(".serbest").length - 1);
+  let seciliSayisi = (document.querySelectorAll(".secili").length - 1);
+  let secilmisSayisi = (document.querySelectorAll(".secilmis").length - 1);
+
+  let serbestYuzde = (serbestSayisi / 41) * 100;
+  let seciliYuzde = (seciliSayisi / 41) * 100;
+  let secilmisYuzde = (secilmisSayisi / 41) * 100;
+  
+  document.querySelector("#serbest").innerHTML = `%${serbestYuzde.toFixed()}`;
+  document.querySelector("#secili").innerHTML = `%${seciliYuzde.toFixed()}`;
+  document.querySelector("#secilmis").innerHTML = `%${secilmisYuzde.toFixed()}`;
+};
 
 
-
-
-
-
-
-
+yuzdehesabı();
 
 ////////////// dropdown menu //////////////////////
 
