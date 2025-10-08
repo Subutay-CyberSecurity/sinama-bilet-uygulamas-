@@ -38,9 +38,11 @@ function yuzdehesabı(){
   let seciliSayisi = (document.querySelectorAll(".secili").length - 1);
   let secilmisSayisi = (document.querySelectorAll(".secilmis").length - 1);
 
-  let serbestYuzde = (serbestSayisi / 41) * 100;
-  let seciliYuzde = (seciliSayisi / 41) * 100;
-  let secilmisYuzde = (secilmisSayisi / 41) * 100;
+
+
+  let serbestYuzde = (serbestSayisi / 40) * 100;
+  let seciliYuzde = (seciliSayisi / 40) * 100;
+  let secilmisYuzde = (secilmisSayisi / 40) * 100;
   
   document.querySelector("#serbest").innerHTML = `%${serbestYuzde.toFixed()}`;
   document.querySelector("#secili").innerHTML = `%${seciliYuzde.toFixed()}`;
