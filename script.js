@@ -26,8 +26,10 @@ document.querySelector("#butonlar").addEventListener("click", function(e){
     tekcift += 1;
     if (tekcift%2 == 1){
       e.target.style.background="red";
+      e.target.style.border="2px solid transparent";
     } else {
-      e.target.style.background="#2E2E2E";
+      e.target.style.background="";
+      e.target.style.border="";
     };
   };
 });
