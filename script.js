@@ -4,13 +4,13 @@ document.querySelector("#koltuk").addEventListener("click" , function(e){
   if(!(e.target.localName == "button")) return;
   if((e.target.className == "serbest") && (!(tekcift%2 == 1))){
     e.target.classList = "secili";
-    yuzdehesabı();
+    istatislik();
   } else if ((e.target.className == "secili") && (!(tekcift%2 == 1))){
     e.target.classList = "serbest";
-    yuzdehesabı();
+    istatislik();
   } else if((e.target.className == "secilmis") && (tekcift%2 == 1)){
     e.target.className = "serbest";
-    yuzdehesabı();
+    istatislik();
   };
 });
 
@@ -21,7 +21,7 @@ document.querySelector("#butonlar").addEventListener("click", function(e){
       e.className = "secilmis";
     });
     document.querySelector("#secili").classList = "secili";
-    yuzdehesabı();
+    istatislik();
   } else if (e.target.className == "iadeet"){
     tekcift += 1;
     if (tekcift%2 == 1){
@@ -32,7 +32,7 @@ document.querySelector("#butonlar").addEventListener("click", function(e){
   };
 });
 
-function yuzdehesabı(){
+function istatislik(){
   
   let serbestSayisi = (document.querySelectorAll(".serbest").length - 1);
   let seciliSayisi = (document.querySelectorAll(".secili").length - 1);
@@ -47,10 +47,21 @@ function yuzdehesabı(){
   document.querySelector("#serbest").innerHTML = `%${serbestYuzde.toFixed()}`;
   document.querySelector("#secili").innerHTML = `%${seciliYuzde.toFixed()}`;
   document.querySelector("#secilmis").innerHTML = `%${secilmisYuzde.toFixed()}`;
+
+  if (seciliSayisi === 0){
+    document.querySelector("#adet").innerHTML=1;
+    document.querySelector("#yazı").innerHTML="adet bilet fiyatı";
+    document.querySelector("#ücret").innerHTML=50;
+  }else{
+    document.querySelector("#adet").innerHTML=seciliSayisi;
+    document.querySelector("#yazı").innerHTML="adet koltuk için hesaplanan ücret";
+    document.querySelector("#ücret").innerHTML=seciliSayisi* 50;
+  } 
+
 };
 
 
-yuzdehesabı();
+istatislik();
 
 ////////////// dropdown menu //////////////////////
 
