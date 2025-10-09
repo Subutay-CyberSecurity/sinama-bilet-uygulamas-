@@ -237,11 +237,11 @@ body{
   align-items: center;
 }
 
-#adet{
+#adet , #toplamadet{
   margin-right: 5px;
 }
 
-#ücret{
+#ücret , #toplamücret{
   margin:0 10px;
 }
 .top{

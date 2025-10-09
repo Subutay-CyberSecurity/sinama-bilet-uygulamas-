@@ -52,13 +52,31 @@ function istatislik(){
     document.querySelector("#adet").innerHTML=1;
     document.querySelector("#yazı").innerHTML="adet bilet fiyatı";
     document.querySelector("#ücret").innerHTML=50;
+    
   }else{
     document.querySelector("#adet").innerHTML=seciliSayisi;
     document.querySelector("#yazı").innerHTML="adet koltuk için hesaplanan ücret";
     document.querySelector("#ücret").innerHTML=seciliSayisi* 50;
+    
   } 
 
-};
+
+  console.log(secilmisSayisi);
+  if (secilmisSayisi === 0){
+    document.querySelector("#toplamadet").innerHTML="";
+    document.querySelector("#toplamyazı").innerHTML="Henüz hiç koltuk satmandınız";
+    document.querySelector("#toplamücret").innerHTML="";
+    document.querySelector("#tldir").style.display="none";
+  }else{
+    document.querySelector("#toplamadet").innerHTML=secilmisSayisi;
+    document.querySelector("#toplamyazı").innerHTML="adet koltuk satıldı toplam kazanç";
+    document.querySelector("#toplamücret").innerHTML=secilmisSayisi* 50;
+    document.querySelector("#tldir").style.display="block";
+  } 
+
+
+
+ };
 
 
 istatislik();
