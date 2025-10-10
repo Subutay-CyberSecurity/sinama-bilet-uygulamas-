@@ -1,25 +1,34 @@
 let tekcift= 0;
 
-document.querySelector("#koltuk").addEventListener("click" , function(e){
-  if(!(e.target.localName == "button")) return;
-  if((e.target.className == "serbest") && (!(tekcift%2 == 1))){
-    e.target.classList = "secili";
-    istatislik();
-  } else if ((e.target.className == "secili") && (!(tekcift%2 == 1))){
-    e.target.classList = "serbest";
-    istatislik();
-  } else if((e.target.className == "secilmis") && (tekcift%2 == 1)){
-    e.target.className = "serbest";
-    istatislik();
-  };
+// Add event listener to all seat containers
+document.querySelectorAll(".koltuk").forEach(container => {
+  container.addEventListener("click", function(e){
+    if(!(e.target.localName == "button")) return;
+    if((e.target.className == "serbest") && (!(tekcift%2 == 1))){
+      e.target.classList = "secili";
+      istatislik();
+    } else if ((e.target.className == "secili") && (!(tekcift%2 == 1))){
+      e.target.classList = "serbest";
+      istatislik();
+    } else if((e.target.className == "secilmis") && (tekcift%2 == 1)){
+      e.target.className = "serbest";
+      istatislik();
+    };
+  });
 });
 
 document.querySelector("#butonlar").addEventListener("click", function(e){
   if (!(e.target.localName=="span"))return;
   if (e.target.className == "satinal"){
-    document.querySelectorAll(".secili").forEach(e => {
-      e.className = "secilmis";
-    });
+    const seatAreas = document.querySelectorAll('.koltuk');
+    for (let area of seatAreas) {
+      if (window.getComputedStyle(area).display !== 'none') {
+        area.querySelectorAll(".secili").forEach(seat => {
+          seat.className = "secilmis";
+        });
+        break;
+      }
+    }
     document.querySelector("#secili").classList = "secili";
     istatislik();
   } else if (e.target.className == "iadeet"){
@@ -35,12 +44,27 @@ document.querySelector("#butonlar").addEventListener("click", function(e){
 });
 
 function istatislik(){
+  let currentSeatArea = null;
   
-  let serbestSayisi = (document.querySelectorAll(".serbest").length - 1);
-  let seciliSayisi = (document.querySelectorAll(".secili").length - 1);
-  let secilmisSayisi = (document.querySelectorAll(".secilmis").length - 1);
-
-
+  const seatAreas = document.querySelectorAll('.koltuk');
+  for (let area of seatAreas) {
+    if (window.getComputedStyle(area).display !== 'none') {
+      currentSeatArea = area;
+      break;
+    }
+  }
+  
+  let serbestSayisi = 0;
+  let seciliSayisi = 0;
+  let secilmisSayisi = 0;
+  
+  if (currentSeatArea) {
+    serbestSayisi = currentSeatArea.querySelectorAll(".serbest").length;
+    seciliSayisi = currentSeatArea.querySelectorAll(".secili").length;
+    secilmisSayisi = currentSeatArea.querySelectorAll(".secilmis").length;
+  }
+  
+  let totalSecilmisSayisi = document.querySelectorAll(".secilmis").length;
 
   let serbestYuzde = (serbestSayisi / 40) * 100;
   let seciliYuzde = (seciliSayisi / 40) * 100;
@@ -63,24 +87,41 @@ function istatislik(){
   } 
 
 
-  console.log(secilmisSayisi);
-  if (secilmisSayisi === 0){
+  if (totalSecilmisSayisi === 0){
     document.querySelector("#toplamadet").innerHTML="";
     document.querySelector("#toplamyazı").innerHTML="Henüz hiç koltuk satmandınız";
     document.querySelector("#toplamücret").innerHTML="";
     document.querySelector("#tldir").style.display="none";
   }else{
-    document.querySelector("#toplamadet").innerHTML=secilmisSayisi;
+    document.querySelector("#toplamadet").innerHTML=totalSecilmisSayisi;
     document.querySelector("#toplamyazı").innerHTML="adet koltuk satıldı toplam kazanç";
-    document.querySelector("#toplamücret").innerHTML=secilmisSayisi* 50;
+    document.querySelector("#toplamücret").innerHTML=totalSecilmisSayisi* 50;
     document.querySelector("#tldir").style.display="block";
-  } 
-
-
-
+  }; 
  };
 
+function hangifilm(){
+  let activeId = document.querySelector(".active").id;
+  
+  document.querySelectorAll('.koltuk').forEach(area => {
+    area.style.display = "none";
+  });
+  
+  if (activeId == "film1"){
+    document.getElementById("koltuk1").style.display = "flex";
+    document.getElementById("perde").innerHTML = "Film 1";
+  } else if (activeId == "film2"){
+    document.getElementById("koltuk2").style.display = "flex";
+    document.getElementById("perde").innerHTML = "Film 2";
+  } else if (activeId == "film3"){
+    document.getElementById("koltuk3").style.display = "flex";
+    document.getElementById("perde").innerHTML = "Film 3";
+  };
+  
+  istatislik();
+};
 
+hangifilm();
 istatislik();
 
 ////////////// dropdown menu //////////////////////
@@ -109,6 +150,7 @@ dropdowns.forEach(dropdown => {
         option.classList.remove("active");
       });
       option.classList.add("active");
+      hangifilm(); // Call hangifilm function to show the correct seats
     });
   })
 });
